@@ -85,7 +85,7 @@ var Keyboard = (function () {
 		constructor: Keyboard,
 		play: function (i) {
 			console.log(i);
-			gainNodes[i].gain.value = 1;
+			gainNodes[i].gain.value = 0.3;
 		},
 		stop: function (i) {
 			gainNodes[i].gain.value = 0;
