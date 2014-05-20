@@ -1,0 +1,111 @@
+// TODO: PROJECT IS DUE IN 1 HOUR MESSY CODE INCOMING GOTTA REFACTOR GO
+var PythaCircle = (function () {
+
+	// private variables and functions
+	var radius = window.innerHeight / 3;
+	var dimension = [window.innerWidth, window.innerHeight];
+	var svgContainer = d3.select("body").append("svg")
+										.attr("width", dimension[0])
+										.attr("height", dimension[1]);
+
+	var bgCircle = svgContainer.append("circle")
+										.attr("cx", dimension[0]/2)
+										.attr("cy", dimension[1]/2)
+										.attr("r", radius)
+										.attr("stroke", "black")
+										.attr("fill", "white");
+	var bgPivot = svgContainer.append("circle")
+										.attr("cx", dimension[0]/2)
+										.attr("cy", dimension[1]/2)
+										.attr("r", radius/30)
+										.attr("stroke", "black")
+										.attr("fill", "black");
+
+	var polygon = 	svgContainer.append("polygon")
+		.attr("fill", "purple")
+		.attr("stroke", "purple");
+	var path = svgContainer.append("path")
+		.attr("stroke", "purple");
+	var notesPlaying = [];
+
+	// input: fraction. output: Location on circle edge
+	function fractionToLoc(fract)
+	{
+		var dx = radius * Math.sin(fract * 2 * Math.PI); // TAU FTW
+		var dy = - radius * Math.cos(fract * 2 * Math.PI);
+		return { 
+			x:dimension[0] / 2 + dx,
+			y:dimension[1] / 2 + dy
+		};
+	}
+
+	function drawPolygon()
+	{
+		// arrange vertexes
+		notesPlaying.sort(function(a, b){return a-b});
+		console.log(notesPlaying);
+		//meh.
+		polygon.attr("points",function() { 
+				var points = "";
+				for (var i=0;i<notesPlaying.length;i++)
+				{
+					console.log(notesPlaying[i]);
+					points += d3.select("#note" + notesPlaying[i]).attr("cx");
+					points += ",";
+					points += d3.select("#note" + notesPlaying[i]).attr("cy");
+					points += " ";
+				}
+				return points;
+			});
+	}
+
+	// constructor
+	var PythaCircle = function () {
+		// DRAW THE FUCKING CIRCLES FOR THE FUCKING NOTES
+		for (var i=0; i<pythaRatios.length; i++)
+		{
+			var loc = fractionToLoc(pythaRatios[i][0] / pythaRatios[i][1]);
+			svgContainer.append("circle")
+						.attr("cx", loc.x)
+						.attr("cy", loc.y)
+						.attr("r", radius / 10)
+						.attr("stroke", "black")
+						.attr("fill", "white")
+						.attr("id", "note"+i);
+		}
+	};
+	// prototype
+	PythaCircle.prototype = {
+		constructor: PythaCircle,
+
+		addNodeDraw : function (i) {
+			if (i == 12) i = 0; // for dat C4
+			// highlight circle
+			var index = notesPlaying.indexOf(i);
+			if (index <= -1)
+			{
+				notesPlaying.push(i);
+			}
+			
+			d3.select("#note"+i).attr("fill", "violet");
+			
+			drawPolygon();
+		},
+
+		removeNodeDraw : function (i) {
+			if (i == 12) i = 0; // for dat C4
+			var index = notesPlaying.indexOf(i);
+			if (index > -1)
+			{
+				notesPlaying.splice(index, 1);
+			}
+			// highlight circle
+			d3.select("#note" + i).attr("fill", "white");
+
+			drawPolygon();
+		},
+		
+	};
+
+	return PythaCircle;
+})();
