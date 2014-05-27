@@ -51,11 +51,15 @@ var Keyboard = (function () {
 	var audio;
 	var oscillators = []; // one oscillator for each note?
 	var gainNodes = []; // and one gainNodes per oscillator to control "playing
+	var mix;
+	var compressor;
 
 	// constructor
 	var Keyboard = function () {
 		// Initialize webAudio oscillator
 		audio = new webkitAudioContext();
+		// Master Gain
+		mix = audio.createGain();
 		for (var i=0; i<pythaRatios.length; i++)
 		{
 			oscillators[i] = audio.createOscillator();
@@ -65,7 +69,7 @@ var Keyboard = (function () {
 			oscillators[i].frequency.value = freq;
 			gainNodes[i].gain.value = 0;
 			oscillators[i].connect(gainNodes[i]);
-			gainNodes[i].connect(audio.destination);
+			gainNodes[i].connect(mix);
 			oscillators[i].noteOn && oscillators[i].noteOn(0);
 		}
 		// dat top C
@@ -76,7 +80,12 @@ var Keyboard = (function () {
 		oscillators[12].frequency.value = freq;
 		gainNodes[12].gain.value = 0;
 		oscillators[12].connect(gainNodes[12]);
-		gainNodes[12].connect(audio.destination);
+		gainNodes[12].connect(mix);
+		// Compression. Only works in Chrome by May 2014
+		compressor = audio.createDynamicsCompressor();
+		mix.connect(compressor);
+		compressor.connect(audio.destination);
+
 		oscillators[12].noteOn && oscillators[12].noteOn(0);
 		console.log(gainNodes);
 	};
@@ -85,7 +94,7 @@ var Keyboard = (function () {
 		constructor: Keyboard,
 		play: function (i) {
 			console.log(i);
-			gainNodes[i].gain.value = 0.3;
+			gainNodes[i].gain.value = 1;
 		},
 		stop: function (i) {
 			gainNodes[i].gain.value = 0;
