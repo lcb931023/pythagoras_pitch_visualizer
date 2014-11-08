@@ -43,13 +43,13 @@ var PythaCircle = (function () {
 	{
 		// arrange vertexes
 		notesPlaying.sort(function(a, b){return a-b});
-		console.log(notesPlaying);
+		//console.log(notesPlaying);
 		//meh.
 		polygon.attr("points",function() { 
 				var points = "";
 				for (var i=0;i<notesPlaying.length;i++)
 				{
-					console.log(notesPlaying[i]);
+					//console.log(notesPlaying[i]);
 					points += d3.select("#note" + notesPlaying[i]).attr("cx");
 					points += ",";
 					points += d3.select("#note" + notesPlaying[i]).attr("cy");

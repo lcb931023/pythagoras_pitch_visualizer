@@ -41,8 +41,8 @@ P:E5
 =:F#5
 ]:G5
 
-Base Frequency According to 
-http://www.phy.mtu.edu/~suits/notefreqs.htmlnoteFreqs 
+Base Frequency According to
+http://www.phy.mtu.edu/~suits/notefreqs.htmlnoteFreqs
 */
 var Keyboard = (function () {
 
@@ -63,7 +63,7 @@ var Keyboard = (function () {
 		for (var i=0; i<pythaRatios.length; i++)
 		{
 			oscillators[i] = audio.createOscillator();
-			gainNodes[i] = audio.createGainNode();
+			gainNodes[i] = audio.createGain();
 			oscillators[i].type = 3; // triangle wave
 			var freq = c3_freq + c3_freq * (pythaRatios[i][0] / pythaRatios[i][1]);
 			oscillators[i].frequency.value = freq;
@@ -74,7 +74,7 @@ var Keyboard = (function () {
 		}
 		// dat top C
 		oscillators[12] = audio.createOscillator();
-		gainNodes[12] = audio.createGainNode();
+		gainNodes[12] = audio.createGain();
 		oscillators[12].type = 3; // triangle wave
 		var freq = c3_freq + c3_freq * 1;
 		oscillators[12].frequency.value = freq;
@@ -87,13 +87,13 @@ var Keyboard = (function () {
 		compressor.connect(audio.destination);
 
 		oscillators[12].noteOn && oscillators[12].noteOn(0);
-		console.log(gainNodes);
+		//console.log(gainNodes);
 	};
 	// prototype
 	Keyboard.prototype = {
 		constructor: Keyboard,
 		play: function (i) {
-			console.log(i);
+			//console.log(i);
 			gainNodes[i].gain.value = 1;
 		},
 		stop: function (i) {

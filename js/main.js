@@ -1,4 +1,4 @@
-var pythaRatios = 
+var pythaRatios =
 [
 	[0,1],
 	[1,15],
@@ -15,7 +15,7 @@ var pythaRatios =
 ]
 
 // TODO: A more intelligient way to allocate notes from keyboard inputs
-var noteMap = 
+var noteMap =
 {
 	"z":0, //C3
 	"s":1, //c3
