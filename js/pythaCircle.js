@@ -12,20 +12,20 @@ var PythaCircle = (function () {
 										.attr("cx", dimension[0]/2)
 										.attr("cy", dimension[1]/2)
 										.attr("r", radius)
-										.attr("stroke", "black")
-										.attr("fill", "white");
+										.attr("stroke", "#467466")
+										.attr("fill", "#1C1624");
 	var bgPivot = svgContainer.append("circle")
 										.attr("cx", dimension[0]/2)
 										.attr("cy", dimension[1]/2)
 										.attr("r", radius/30)
-										.attr("stroke", "black")
-										.attr("fill", "black");
+										.attr("stroke", "#467466")
+										.attr("fill", "#467466");
 
 	var polygon = 	svgContainer.append("polygon")
-		.attr("fill", "purple")
-		.attr("stroke", "purple");
+		.attr("fill", "#75BE99")
+		.attr("stroke", "#75BE99");
 	var path = svgContainer.append("path")
-		.attr("stroke", "purple");
+		.attr("stroke", "#75BE99");
 	var notesPlaying = [];
 
 	// input: fraction. output: Location on circle edge
@@ -33,7 +33,7 @@ var PythaCircle = (function () {
 	{
 		var dx = radius * Math.sin(fract * 2 * Math.PI); // TAU FTW
 		var dy = - radius * Math.cos(fract * 2 * Math.PI);
-		return { 
+		return {
 			x:dimension[0] / 2 + dx,
 			y:dimension[1] / 2 + dy
 		};
@@ -45,7 +45,7 @@ var PythaCircle = (function () {
 		notesPlaying.sort(function(a, b){return a-b});
 		//console.log(notesPlaying);
 		//meh.
-		polygon.attr("points",function() { 
+		polygon.attr("points",function() {
 				var points = "";
 				for (var i=0;i<notesPlaying.length;i++)
 				{
@@ -69,8 +69,8 @@ var PythaCircle = (function () {
 						.attr("cx", loc.x)
 						.attr("cy", loc.y)
 						.attr("r", radius / 10)
-						.attr("stroke", "black")
-						.attr("fill", "white")
+						.attr("stroke", "#467466")
+						.attr("fill", "#1C1624")
 						.attr("id", "note"+i);
 		}
 	};
@@ -86,9 +86,9 @@ var PythaCircle = (function () {
 			{
 				notesPlaying.push(i);
 			}
-			
-			d3.select("#note"+i).attr("fill", "violet");
-			
+
+			d3.select("#note"+i).attr("fill", "#A8CEAC");
+
 			drawPolygon();
 		},
 
@@ -100,11 +100,11 @@ var PythaCircle = (function () {
 				notesPlaying.splice(index, 1);
 			}
 			// highlight circle
-			d3.select("#note" + i).attr("fill", "white");
+			d3.select("#note" + i).attr("fill", "#1C1624");
 
 			drawPolygon();
 		},
-		
+
 	};
 
 	return PythaCircle;

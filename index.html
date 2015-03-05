@@ -3,10 +3,18 @@
 <style>
 
 body {
-	font: 13px sans-serif;
+	font-size: 13px;
+	font-family: 'Andale Mono', monospace;
+	background-color: #1C1624;
+	color: #75BE99;
+
 }
 #header{
 	position: absolute;
+}
+
+.control {
+	font-size: 2em;
 }
 
 </style>
@@ -19,9 +27,13 @@ body {
 <div id="header">
 <h1>The Circle of Pythagorus</h1>
 <h3>A study on Just Intonation</h3>
-<h3>Control:</h3>
-<p style="padding-left:0.2em;">sd ghj</p>
-<p>zxcvbnm,</p>
+<h3 class="control">Control:</h3>
+<p class="control">
+	sd ghj<br>
+	zxcvbnm,
+</p>
+<br><br>
+<em>Turn your sound on</em>
 </div>
 </body>
 <script src="http://d3js.org/d3.v3.min.js"></script>

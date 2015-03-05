@@ -57,25 +57,25 @@ var Keyboard = (function () {
 	// constructor
 	var Keyboard = function () {
 		// Initialize webAudio oscillator
-		audio = new webkitAudioContext();
+		audio = new AudioContext();
 		// Master Gain
 		mix = audio.createGain();
 		for (var i=0; i<pythaRatios.length; i++)
 		{
 			oscillators[i] = audio.createOscillator();
 			gainNodes[i] = audio.createGain();
-			oscillators[i].type = 3; // triangle wave
+			oscillators[i].type = "triangle"; // triangle wave
 			var freq = c3_freq + c3_freq * (pythaRatios[i][0] / pythaRatios[i][1]);
 			oscillators[i].frequency.value = freq;
 			gainNodes[i].gain.value = 0;
 			oscillators[i].connect(gainNodes[i]);
 			gainNodes[i].connect(mix);
-			oscillators[i].noteOn && oscillators[i].noteOn(0);
+			oscillators[i].start(0);
 		}
 		// dat top C
 		oscillators[12] = audio.createOscillator();
 		gainNodes[12] = audio.createGain();
-		oscillators[12].type = 3; // triangle wave
+		oscillators[12].type = "triangle"; // triangle wave
 		var freq = c3_freq + c3_freq * 1;
 		oscillators[12].frequency.value = freq;
 		gainNodes[12].gain.value = 0;
@@ -86,7 +86,7 @@ var Keyboard = (function () {
 		mix.connect(compressor);
 		compressor.connect(audio.destination);
 
-		oscillators[12].noteOn && oscillators[12].noteOn(0);
+		oscillators[12].start(0);
 		//console.log(gainNodes);
 	};
 	// prototype
