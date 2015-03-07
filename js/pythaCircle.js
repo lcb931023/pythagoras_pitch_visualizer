@@ -50,9 +50,11 @@ var PythaCircle = (function () {
 				for (var i=0;i<notesPlaying.length;i++)
 				{
 					//console.log(notesPlaying[i]);
-					points += d3.select("#note" + notesPlaying[i]).attr("cx");
+					var index = i;
+					if ( !d3.select("#note" + notesPlaying[index]).attr ) index += pythaRatios.length;
+					points += d3.select("#note" + notesPlaying[index]).attr("cx");
 					points += ",";
-					points += d3.select("#note" + notesPlaying[i]).attr("cy");
+					points += d3.select("#note" + notesPlaying[index]).attr("cy");
 					points += " ";
 				}
 				return points;
@@ -79,7 +81,6 @@ var PythaCircle = (function () {
 		constructor: PythaCircle,
 
 		addNodeDraw : function (i) {
-			if (i == 12) i = 0; // for dat C4
 			// highlight circle
 			var index = notesPlaying.indexOf(i);
 			if (index <= -1)
@@ -87,19 +88,24 @@ var PythaCircle = (function () {
 				notesPlaying.push(i);
 			}
 
+			if (i >= pythaRatios.length) {
+				i -= pythaRatios.length;
+			}
 			d3.select("#note"+i).attr("fill", "#A8CEAC");
 
 			drawPolygon();
 		},
 
 		removeNodeDraw : function (i) {
-			if (i == 12) i = 0; // for dat C4
 			var index = notesPlaying.indexOf(i);
 			if (index > -1)
 			{
 				notesPlaying.splice(index, 1);
 			}
 			// highlight circle
+			if (i >= pythaRatios.length) {
+				i -= pythaRatios.length;
+			}
 			d3.select("#note" + i).attr("fill", "#1C1624");
 
 			drawPolygon();

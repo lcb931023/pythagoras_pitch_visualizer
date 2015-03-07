@@ -60,33 +60,27 @@ var Keyboard = (function () {
 		audio = new AudioContext();
 		// Master Gain
 		mix = audio.createGain();
-		for (var i=0; i<pythaRatios.length; i++)
-		{
-			oscillators[i] = audio.createOscillator();
-			gainNodes[i] = audio.createGain();
-			oscillators[i].type = "triangle"; // triangle wave
-			var freq = c3_freq + c3_freq * (pythaRatios[i][0] / pythaRatios[i][1]);
-			oscillators[i].frequency.value = freq;
-			gainNodes[i].gain.value = 0;
-			oscillators[i].connect(gainNodes[i]);
-			gainNodes[i].connect(mix);
-			oscillators[i].start(0);
+		for (var j = 0; j < 2; j++) {
+			for (var i=0; i<pythaRatios.length; i++)
+			{
+				oscillators[i + j * pythaRatios.length] = audio.createOscillator();
+				gainNodes[i + j * pythaRatios.length] = audio.createGain();
+				oscillators[i + j * pythaRatios.length].type = "triangle"; // triangle wave
+				var freq = c3_freq + c3_freq * (pythaRatios[i][0] / pythaRatios[i][1]);
+				freq *= (j+1);
+				oscillators[i + j * pythaRatios.length].frequency.value = freq;
+				gainNodes[i + j * pythaRatios.length].gain.value = 0;
+				oscillators[i + j * pythaRatios.length].connect(gainNodes[i + j * pythaRatios.length]);
+				gainNodes[i + j * pythaRatios.length].connect(mix);
+				oscillators[i + j * pythaRatios.length].start(0);
+				console.log("create");
+			}
 		}
-		// dat top C
-		oscillators[12] = audio.createOscillator();
-		gainNodes[12] = audio.createGain();
-		oscillators[12].type = "triangle"; // triangle wave
-		var freq = c3_freq + c3_freq * 1;
-		oscillators[12].frequency.value = freq;
-		gainNodes[12].gain.value = 0;
-		oscillators[12].connect(gainNodes[12]);
-		gainNodes[12].connect(mix);
 		// Compression. Only works in Chrome by May 2014
 		compressor = audio.createDynamicsCompressor();
 		mix.connect(compressor);
 		compressor.connect(audio.destination);
 
-		oscillators[12].start(0);
 		//console.log(gainNodes);
 	};
 	// prototype

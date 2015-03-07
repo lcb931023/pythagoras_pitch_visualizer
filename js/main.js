@@ -30,6 +30,19 @@ var noteMap =
 	"j":10, //a3
 	"m":11, //B3
 	",":12, //C4
+	"q":12,
+	"2":13,
+	"w":14,
+	"3":15,
+	"e":16,
+	"r":17,
+	"5":18,
+	"t":19,
+	"6":20,
+	"y":21,
+	"7":22,
+	"u":23,
+
 }
 
 document.addEventListener('DOMContentLoaded', function(){
