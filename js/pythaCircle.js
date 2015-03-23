@@ -2,7 +2,7 @@
 var PythaCircle = (function () {
 
     // private variables and functions
-    var radius = window.innerHeight / 3;
+    var radius = window.innerWidth / 3 < window.innerHeight / 3 ? window.innerWidth / 3 : window.innerHeight / 3;
     var dimension = [window.innerWidth, window.innerHeight];
     var svgContainer = d3.select(".svg-wrapper").append("svg")
                                         .attr("viewBox", "0 0 " + dimension[0] + " " + dimension[1])
@@ -51,11 +51,13 @@ var PythaCircle = (function () {
                 for (var i=0;i<notesPlaying.length;i++)
                 {
                     //console.log(notesPlaying[i]);
-                    var index = i;
-                    if ( !d3.select("#note" + notesPlaying[index]).attr ) index += pythaRatios.length;
-                    points += d3.select("#note" + notesPlaying[index]).attr("cx");
+                    var index = notesPlaying[i];
+                    if ( !d3.select("#note" + index)[0][0] ) {
+                        index -= pythaRatios.length;
+                    }
+                    points += d3.select("#note" + index).attr("cx");
                     points += ",";
-                    points += d3.select("#note" + notesPlaying[index]).attr("cy");
+                    points += d3.select("#note" + index).attr("cy");
                     points += " ";
                 }
                 return points;

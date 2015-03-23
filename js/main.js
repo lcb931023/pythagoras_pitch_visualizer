@@ -42,7 +42,6 @@ var noteMap =
     "y":21,
     "7":22,
     "u":23,
-
 }
 
 document.addEventListener('DOMContentLoaded', function(){
