@@ -73,7 +73,6 @@ var Keyboard = (function () {
                 oscillators[i + j * pythaRatios.length].connect(gainNodes[i + j * pythaRatios.length]);
                 gainNodes[i + j * pythaRatios.length].connect(mix);
                 oscillators[i + j * pythaRatios.length].start(0);
-                console.log("create");
             }
         }
         // Compression. Only works in Chrome by May 2014
@@ -87,7 +86,6 @@ var Keyboard = (function () {
     Keyboard.prototype = {
         constructor: Keyboard,
         play: function (i) {
-            //console.log(i);
             gainNodes[i].gain.value = 1;
         },
         stop: function (i) {

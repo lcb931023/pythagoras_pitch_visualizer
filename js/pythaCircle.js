@@ -42,22 +42,31 @@ var PythaCircle = (function () {
 
     function drawPolygon()
     {
-        // arrange vertexes
-        notesPlaying.sort(function(a, b){return a-b});
-        //console.log(notesPlaying);
+        var sortedNotesPlaying = notesPlaying.slice();
+        // if higher octave, lower by an octave
+        for (var i=0;i<sortedNotesPlaying.length;i++)
+        {
+            if ( sortedNotesPlaying[i] >= pythaRatios.length ) {
+                sortedNotesPlaying[i] -= pythaRatios.length;
+            }
+        }
+        // sort note orders
+        sortedNotesPlaying.sort(function(a, b){return a-b});
+        console.log(sortedNotesPlaying);
         //meh.
         polygon.attr("points",function() {
                 var points = "";
-                for (var i=0;i<notesPlaying.length;i++)
+                for (var i=0;i<sortedNotesPlaying.length;i++)
                 {
-                    //console.log(notesPlaying[i]);
-                    var index = notesPlaying[i];
-                    if ( !d3.select("#note" + index)[0][0] ) {
-                        index -= pythaRatios.length;
+                    //console.log(sortedNotesPlaying[i]);
+                    var noteIndex = sortedNotesPlaying[i];
+                    // if higher octave, lower the noteIndex by an octave
+                    if ( noteIndex >= pythaRatios.length ) {
+                        noteIndex -= pythaRatios.length;
                     }
-                    points += d3.select("#note" + index).attr("cx");
+                    points += d3.select("#note" + noteIndex).attr("cx");
                     points += ",";
-                    points += d3.select("#note" + index).attr("cy");
+                    points += d3.select("#note" + noteIndex).attr("cy");
                     points += " ";
                 }
                 return points;
