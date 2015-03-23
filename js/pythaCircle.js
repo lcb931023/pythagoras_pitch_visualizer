@@ -4,7 +4,8 @@ var PythaCircle = (function () {
     // private variables and functions
     var radius = window.innerHeight / 3;
     var dimension = [window.innerWidth, window.innerHeight];
-    var svgContainer = d3.select("body").append("svg")
+    var svgContainer = d3.select(".svg-wrapper").append("svg")
+                                        .attr("viewBox", "0 0 " + dimension[0] + " " + dimension[1])
                                         .attr("width", dimension[0])
                                         .attr("height", dimension[1]);
 
