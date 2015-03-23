@@ -52,7 +52,6 @@ var PythaCircle = (function () {
         }
         // sort note orders
         sortedNotesPlaying.sort(function(a, b){return a-b});
-        console.log(sortedNotesPlaying);
         //meh.
         polygon.attr("points",function() {
                 var points = "";
