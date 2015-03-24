@@ -12,7 +12,7 @@ var pythaRatios =
     [2,3],
     [7,9],
     [7,8]
-]
+];
 
 // TODO: A more intelligient way to allocate notes from keyboard inputs
 var noteMap =
@@ -42,7 +42,13 @@ var noteMap =
     "y":21,
     "7":22,
     "u":23,
-}
+};
+var bannedKeys = [
+    16, // shift
+    17, // ctrl
+    18, // alt
+    91 // cmd
+];
 
 document.addEventListener('DOMContentLoaded', function(){
 
@@ -50,9 +56,18 @@ document.addEventListener('DOMContentLoaded', function(){
     var keyboard = new Keyboard();
 
     var circle = new PythaCircle();
+    
+    var bannedKeysDown = false;
 
     // keyboard control
     window.onkeydown = function(event){
+        // check for banned keys
+        if ( _.contains( bannedKeys, event.keyCode ) ) {
+            bannedKeysDown = true;
+            return;
+        }
+        // Disable playing if there's a banned key down
+        if (bannedKeysDown) return;
         var note = noteMap[Key[event.keyCode]];
         if (note != null)
         {
@@ -62,6 +77,11 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     };
     window.onkeyup = function(event){
+        // check for banned keys
+        if ( _.contains( bannedKeys, event.keyCode ) ) {
+            bannedKeysDown = false;
+            return;
+        }
         var note = noteMap[Key[event.keyCode]];
         if (note != null)
         {
@@ -69,5 +89,9 @@ document.addEventListener('DOMContentLoaded', function(){
             keyboard.stop(note);
             circle.removeNodeDraw(note);
         }
+    };
+    // Sometimes there won't be a banned keys up event. window onfocus comes to the rescue.
+    window.onfocus = function() {
+        bannedKeysDown = false;
     };
 });
