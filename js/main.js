@@ -47,7 +47,7 @@ var bannedKeys = [
     16, // shift
     17, // ctrl
     18, // alt
-    91 // cmd
+    91, 92 // left & right cmd
 ];
 
 document.addEventListener('DOMContentLoaded', function(){
