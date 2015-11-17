@@ -57,7 +57,9 @@ var Keyboard = (function () {
     // constructor
     var Keyboard = function () {
         // Initialize webAudio oscillator
-        audio = new AudioContext();
+        if (window.webkitAudioContext) audio = new webkitAudioContext();
+        else audio = new AudioContext();
+
         // Master Gain
         mix = audio.createGain();
         for (var j = 0; j < 2; j++) {
