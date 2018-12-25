@@ -1,17 +1,17 @@
 var pythaRatios =
 [
-    [0,1],
-    [1,15],
-    [1,8],
-    [1,5],
-    [1,4],
-    [1,3],
-    [2,5],
-    [1,2],
-    [3,5],
-    [2,3],
-    [7,9],
-    [7,8]
+    [0,1],  // P1
+    [1,15], // m2
+    [1,8],  // M2
+    [1,5],  // m3
+    [1,4],  // M3
+    [1,3],  // P4
+    [2,5],  // TT // septimal tritone
+    [1,2],  // P5
+    [3,5],  // m6
+    [2,3],  // M6
+    [4,5],  // m7 // large just minor seventh. Can also be tuned as [7,9] - small just minor seventh
+    [7,8]   // M7
 ];
 
 // TODO: A more intelligient way to allocate notes from keyboard inputs
