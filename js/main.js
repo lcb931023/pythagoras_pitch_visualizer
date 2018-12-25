@@ -50,13 +50,17 @@ var bannedKeys = [
     91, 92 // left & right cmd
 ];
 
-document.addEventListener('DOMContentLoaded', function(){
+var btnStart = document.querySelector('.start')
+var volumnHint = document.querySelector('.volumn-hint')
+btnStart.addEventListener('click', ()=>{
+    btnStart.style.display = 'none'
+    volumnHint.style.display = 'inherit'
 
     // Entry Point
     var keyboard = new Keyboard();
 
     var circle = new PythaCircle();
-    
+
     var bannedKeysDown = false;
 
     // keyboard control
@@ -94,4 +98,6 @@ document.addEventListener('DOMContentLoaded', function(){
     window.onfocus = function() {
         bannedKeysDown = false;
     };
-});
+
+})
+
